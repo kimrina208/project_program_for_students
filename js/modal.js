@@ -16,31 +16,31 @@ const closeModal = () => {
 
 modalTrigger.onclick = () => openModal()
 closeModalButton.onclick = () => closeModal()
-setTimeout(openModal, 10000)
+// setTimeout(openModal, 10000)
 modal.onclick = (event) => {
-    event.stopPropagation()
-    event.target === modal && closeModal()
+    if (event.target === modal) {
+        closeModal()
+    }
 }
 
 const scrollHandler = () => {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
         openModal()
-        window.removeEventListener('scroll', scrollHandler);
+        window.removeEventListener('scroll', scrollHandler)
     }
 }
 
-window.addEventListener('scroll', scrollHandler);
-
+window.addEventListener('scroll', scrollHandler)
 
 // POST DATA
 
 const form = document.querySelector('form')
 
-const postData = async (url, data) => {
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {'Content-type': 'application/json'},
-        body: data
+const postData = (url, dataJson) => {
+    const response = fetch(url, {
+        method: "POST",
+        headers: {"Content-type": "application/json"},
+        body: dataJson
     })
     return response
 }
@@ -50,9 +50,11 @@ const bindPostData = (form) => {
         event.preventDefault()
         const formData = new FormData(form)
         const obj = {}
-        formData.forEach((item, i) => obj[i] = item)
+        formData.forEach((item, i) => {
+            obj[i] = item
+        })
         const json = JSON.stringify(obj)
-        if (window.location.pathname === '/project/index.html') {
+        if (window.location.pathname === '/project_program_for_students/index.html') {
             postData('server.php', json)
         } else {
             postData('../server.php', json)

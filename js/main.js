@@ -15,7 +15,9 @@ const generateRandomColor = () => {
 const setRandomColors = () => {
     buttonsColor.forEach((buttonColor) => {
         buttonColor.innerHTML = generateRandomColor()
-        buttonColor.onclick = (event) => javaScript.style.color = event.target.innerHTML
+        buttonColor.onclick = (event) => {
+            javaScript.style.color = event.target.innerHTML
+        }
     })
 }
 
